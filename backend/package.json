@@ -2,15 +2,15 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsx --watch src/index.ts",
-    "build": "tsc && node dist/index.js",
+    "start": "tsx --watch src/server.ts",
+    "build": "tsc && node dist/server.js",
     "format": "npx prettier --write src/**/*.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kevin Rozario",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
