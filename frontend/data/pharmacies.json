@@ -1,0 +1,112 @@
+[
+    {
+        "pharmacyId": 1,
+        "pharmacyName": "Parizad Medical Store",
+        "rating": 3.7,
+        "phoneNumber": "",
+        "location": {
+            "lat": 19.38962296501596,
+            "lng": 72.82614732085045
+        },
+        "address": "Shop No 3, Dewan Mansion, 1, Ambadi Rd, Krishna Twp, Vasai West, Vasai-Virar, Maharashtra 401202"
+    },
+    {
+        "pharmacyId": 2,
+        "pharmacyName": "Welcome Medical Store",
+        "rating": 3.8,
+        "phoneNumber": "09860160755",
+        "location": {
+            "lat": 19.389501521054626,
+            "lng": 72.82696271240378
+        },
+        "address": "Shop. No. 12, Girinar Mahal, 24, Ambadi Rd, near Panchvati Hotel, Shastri Nagar, Vishal Nagar, Vasai West, Vasai-Virar, Maharashtra 401202"
+    },
+    {
+        "pharmacyId": 3,
+        "pharmacyName": "Sunshine Chemist",
+        "rating": 4.8,
+        "phoneNumber": "09975673220",
+        "location": {
+            "lat": 19.391672985239737,
+            "lng": 72.82588295804752
+        },
+        "address": "Shop No. 02, Dhuri Pride, Om Nagar, Ambadi Rd, Village Diwanman, Vasai West, Vasai-Virar, Maharashtra 401202"
+    },
+    {
+        "pharmacyId": 4,
+        "pharmacyName": "First Care Medical",
+        "rating": 4.0,
+        "phoneNumber": "08421336553",
+        "location": {
+            "lat": 19.38863878329834,
+            "lng": 72.82757883320122
+        },
+        "address": "Shop No. 1, Mauriya Niwas, opposite Chadramukhi Building, Shastri Nagar, Vishal Nagar, Vasai West, Thane, Vasai-Virar, Maharashtra 401202"
+    },
+    {
+        "pharmacyId": 5,
+        "pharmacyName": "Galaxy Chemist Generic Medicine",
+        "rating": 4.7,
+        "phoneNumber": "",
+        "location": {
+            "lat": 19.388835411694537,
+            "lng": 72.82763523507532
+        },
+        "address": "Shop no.4, Chandramukhi CHS LTD, Ambadi Rd, behind Panchvati Hotel, Vishal Nagar, Vasai West, Mumbai, Maharashtra 401202"
+    },
+    {
+        "pharmacyId": 6,
+        "pharmacyName": "Prajapati Medical",
+        "rating": 4.1,
+        "phoneNumber": "09768586680",
+        "location": {
+            "lat": 19.38202085777087,
+            "lng": 72.83200222628473
+        },
+        "address": "Shop No. 3/A, shwan Apt, Vasai Rd W, Anand Nagar, Vasai West, Vasai-Virar, Maharashtra 401202"
+    },
+    {
+        "pharmacyId": 7,
+        "pharmacyName": "Generic Aushadhalaya",
+        "rating": 5.0,
+        "phoneNumber": "09076141802",
+        "location": {
+            "lat": 19.381740981029623,
+            "lng": 72.83169654472866
+        },
+        "address": "Platform No. 01, Rajnigandha Apt, Shop No 05, near MAN MANDIR, Anand Nagar, Vasai West, Mumbai, Maharashtra 401202"
+    },
+    {
+        "pharmacyId": 8,
+        "pharmacyName": "Kreesha Chemist and Druggist",
+        "rating": 5.0,
+        "phoneNumber": "08390261611",
+        "location": {
+            "lat": 19.379255993643152,
+            "lng": 72.82658087402555
+        },
+        "address": "Shop 02 Dindayal Nagar, Navghar, Vasai West, Vasai-Virar, Maharashtra 401202"
+    },
+    {
+        "pharmacyId": 9,
+        "pharmacyName": "Wellness Forever Pharmacy",
+        "rating": 3.7,
+        "phoneNumber": "09167394069",
+        "location": {
+            "lat": 19.38120666949269,
+            "lng": 72.82909825153205
+        },
+        "address": "6/A & 6/B, Ground Floor Hira Niketan, Ambadi road, corner, Vasai Rd W, Thane, Maharashtra 401202"
+    },
+    {
+        "pharmacyId": 10,
+        "pharmacyName": "Sanjeevani Medical & General Stores",
+        "rating": 4.9,
+        "phoneNumber": "09930030083",
+        "location": {
+            "lat": 19.386469276001677,
+            "lng": 72.82524077075435
+        },
+        "address": "100 Feet Rd, Sai Nagar, Vasai West, Navghar-Manikpur, Vasai-Virar, Maharashtra 401202"
+    }
+]
