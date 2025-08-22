@@ -13,8 +13,8 @@ import { z } from "zod";
 import { Button } from "~/components/ui/button";
 
 const formSchema = z.object({
-  email: z.string(),
-  password: z.string(),
+  email: z.string().email("Enter a valid email"),
+  password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
 const Login = () => {
@@ -40,7 +40,11 @@ const Login = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Email" {...field} />
+                <Input
+                  placeholder="Email"
+                  className={`${form.formState.errors.email ? "border-red-500" : ""}`}
+                  {...field}
+                />
               </FormControl>
             </FormItem>
           )}
@@ -53,7 +57,12 @@ const Login = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Email" {...field} type="password" />
+                <Input
+                  placeholder="Password"
+                  className={`${form.formState.errors.password ? "border-red-500" : ""}`}
+                  {...field}
+                  type="password"
+                />
               </FormControl>
             </FormItem>
           )}
