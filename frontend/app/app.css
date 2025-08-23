@@ -37,6 +37,12 @@ body {
   }
 }
 
+@layer components {
+  .form-input {
+    @apply w-full pl-5 pr-10 py-2 bg-transparent placeholder:text-slate-400 text-slate-600 text-sm border border-slate-200 rounded-full transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow;
+  }
+}
+
 @theme inline {
   --radius-sm:
     calc(var(--radius) - 4px);
