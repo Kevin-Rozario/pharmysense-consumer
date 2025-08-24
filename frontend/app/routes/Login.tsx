@@ -153,14 +153,14 @@ const Login = () => {
             Apple
           </Button>
 
-          {/* Sign up */}
+          {/* Register */}
           <p className="text-sm text-slate-600 text-center">
             Don&apos;t have an account?{" "}
             <Link
-              to="/register"
+              to="/auth/register"
               className="text-blue-600 hover:underline font-medium"
             >
-              Sign up
+              Register
             </Link>
           </p>
         </div>
