@@ -41,6 +41,7 @@ export const register = asyncHandler(
   },
 );
 
+// * TODO: Email verification to be implemented...
 export const verifyEmail = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {},
 );

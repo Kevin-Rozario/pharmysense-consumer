@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import loggerMiddleware from "./middlewares/logger.middleware.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
+import authRoutes from "./routes/auth.route.js";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
     message: "Welcome to Pharmysense API",
   });
 });
+app.use("/api/v1/auth", authRoutes);
 
 // Error Handler Middleware
 app.use(errorMiddleware);
