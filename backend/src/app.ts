@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
+import loggerMiddleware from "./middlewares/logger.middleware.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
-import type { Request, Response } from "express";
 
 const app = express();
 
@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Logger Middleware
+app.use(loggerMiddleware);
 
 // Routes
 app.get("/", (req, res) => {
