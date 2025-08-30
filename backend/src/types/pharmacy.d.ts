@@ -10,7 +10,7 @@ export interface IPharmacy extends Document {
   gpsLocation: {
     type: "Point";
     coordinates: [number, number];
-  }
+  };
   deliveryAvailable: boolean;
   deliveryRadiusKm?: number;
   averageDeliveryTimeMinutes?: number;

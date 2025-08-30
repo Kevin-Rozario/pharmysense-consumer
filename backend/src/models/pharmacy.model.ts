@@ -31,7 +31,4 @@ const PharmacySchema = new Schema<IPharmacy>(
 
 PharmacySchema.index({ gpsLocation: "2dsphere" });
 
-export const PharmacyModel = model<IPharmacy>(
-  "Pharmacy",
-  PharmacySchema,
-);
+export const PharmacyModel = model<IPharmacy>("Pharmacy", PharmacySchema);
