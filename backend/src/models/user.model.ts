@@ -8,19 +8,22 @@ const userSchema = new Schema<IUser>(
   {
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
+    password: { type: String },
     phoneNumber: { type: String },
-    role: { type: String, enum: ["admin", "user"] },
+    role: { type: String, enum: ["admin", "user"], default: "user" },
     gpsLocation: {
       latitude: { type: Number },
       longitude: { type: Number },
     },
+    provider: { type: String, enum: ["local", "google"], default: "local" },
+    googleId: { type: String },
+    refreshToken: { type: String },
   },
   { timestamps: true },
 );
 
 userSchema.pre<IUser>("save", async function (next) {
-  if (this.isModified("password")) {
+  if (this.isModified("password") && this.password) {
     this.password = await bcrypt.hash(this.password, 10);
   }
   next();
@@ -29,30 +32,21 @@ userSchema.pre<IUser>("save", async function (next) {
 userSchema.methods.comparePassword = async function (
   password: string,
 ): Promise<boolean> {
+  if (!this.password) return false;
   return await bcrypt.compare(password, this.password);
 };
 
 userSchema.methods.generateTokens = function () {
   const accessToken = jwt.sign(
-    {
-      userId: this._id,
-      role: this.role,
-    },
+    { userId: this._id, role: this.role },
     env.JWT_ACCESS_SECRET,
-    {
-      expiresIn: env.JWT_ACCESS_TTL,
-    } as SignOptions,
+    { expiresIn: env.JWT_ACCESS_TTL } as SignOptions,
   );
 
   const refreshToken = jwt.sign(
-    {
-      userId: this._id,
-      role: this.role,
-    },
+    { userId: this._id, role: this.role },
     env.JWT_REFRESH_SECRET,
-    {
-      expiresIn: env.JWT_REFRESH_TTL,
-    } as SignOptions,
+    { expiresIn: env.JWT_REFRESH_TTL } as SignOptions,
   );
 
   return { accessToken, refreshToken };

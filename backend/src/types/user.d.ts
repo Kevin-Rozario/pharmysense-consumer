@@ -3,14 +3,17 @@ import { Document } from "mongoose";
 export interface IUser extends Document {
   name: string;
   email: string;
-  password: string;
-  refreshToken?: string;
-  role: "admin" | "user";
+  password?: string; // optional for Google users
   phoneNumber?: string;
+  role: "admin" | "user";
   gpsLocation?: {
     latitude: number;
     longitude: number;
   };
+  provider: "local" | "google";
+  googleId?: string;
+  picture?: string;
+  refreshToken?: string;
   createdAt?: Date;
   updatedAt?: Date;
 
