@@ -20,6 +20,7 @@ const errorMiddleware = (
       success: false,
       status: 400,
       message: err.message,
+      errors: err.errors || null,
     });
   }
 
