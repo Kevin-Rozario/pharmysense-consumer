@@ -4,6 +4,8 @@ export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
+  refreshToken?: string;
+  role: "admin" | "user";
   phoneNumber?: string;
   gpsLocation?: {
     latitude: number;
@@ -11,4 +13,7 @@ export interface IUser extends Document {
   };
   createdAt?: Date;
   updatedAt?: Date;
+
+  comparePassword(password: string): Promise<boolean>;
+  generateTokens(): { accessToken: string; refreshToken: string };
 }

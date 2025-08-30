@@ -3,19 +3,7 @@ import { env } from "../config/env.config.js";
 
 type Payload = {
   userId: string;
-  role: string;
-};
-
-export const generateTokens = ({ userId, role }: Payload) => {
-  const accessToken = jwt.sign({ userId, role }, env.JWT_ACCESS_SECRET, {
-    expiresIn: env.JWT_ACCESS_TTL,
-  } as SignOptions);
-
-  const refreshToken = jwt.sign({ userId, role }, env.JWT_REFRESH_SECRET, {
-    expiresIn: env.JWT_REFRESH_TTL,
-  } as SignOptions);
-
-  return { accessToken, refreshToken };
+  role: "admin" | "user";
 };
 
 export const verifyToken: (
