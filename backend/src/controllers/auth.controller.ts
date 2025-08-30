@@ -206,7 +206,7 @@ export const googleCallback = asyncHandler(
       },
     );
 
-    const { sub, email, name, picture } = profile;
+    const { sub, email, name } = profile;
 
     if (!email) {
       return next(new ApiError(400, "Google account has no email"));

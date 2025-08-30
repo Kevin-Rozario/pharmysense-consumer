@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Model, Schema, model } from "mongoose";
 import type { IPharmacy } from "../types/pharmacy.js";
 
 const PharmacySchema = new Schema<IPharmacy>(
@@ -31,4 +31,6 @@ const PharmacySchema = new Schema<IPharmacy>(
 
 PharmacySchema.index({ gpsLocation: "2dsphere" });
 
-export const PharmacyModel = model<IPharmacy>("Pharmacy", PharmacySchema);
+export const PharmacyModel: Model<IPharmacy> =
+  (mongoose.models.Pharmacy as Model<IPharmacy>) ||
+  model<IPharmacy>("Pharmacy", PharmacySchema);

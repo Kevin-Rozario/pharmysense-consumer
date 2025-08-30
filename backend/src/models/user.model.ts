@@ -1,4 +1,4 @@
-import { Model, Schema, model, models } from "mongoose";
+import mongoose, { Model, Schema, model } from "mongoose";
 import type { IUser } from "../types/user.d.js";
 import bcrypt from "bcryptjs";
 import jwt, { type SignOptions } from "jsonwebtoken";
@@ -53,4 +53,4 @@ userSchema.methods.generateTokens = function () {
 };
 
 export const UserModel: Model<IUser> =
-  (models.User as Model<IUser>) || model<IUser>("User", userSchema);
+  (mongoose.models.User as Model<IUser>) || model<IUser>("User", userSchema);

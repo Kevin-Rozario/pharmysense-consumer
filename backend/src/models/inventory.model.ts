@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Model, Schema, model } from "mongoose";
 import type { IInventory } from "../types/inventory.d.js";
 
 const InventorySchema = new Schema<IInventory>(
@@ -19,7 +19,6 @@ const InventorySchema = new Schema<IInventory>(
 
 InventorySchema.index({ shopId: 1, medicineId: 1 }, { unique: true });
 
-export const ShopInventoryModel = model<IInventory>(
-  "ShopInventory",
-  InventorySchema,
-);
+export const InventoryModel: Model<IInventory> =
+  (mongoose.models.Inventory as Model<IInventory>) ||
+  model<IInventory>("Inventory", InventorySchema);
