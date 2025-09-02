@@ -2,7 +2,7 @@ import { AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { useCallback, useState } from "react";
 import MarkerInfoCard from "./MarkerInfoCard";
 
-const Marker = ({ pharmacies }: { pharmacies: IPharmacy[] }) => {
+const PharmaMarkers = ({ pharmacies }: { pharmacies: IPharmacy[] }) => {
   const [selectedPharmacy, setSelectedPharmacy] = useState<IPharmacy | null>(
     null
   );
@@ -39,4 +39,4 @@ const Marker = ({ pharmacies }: { pharmacies: IPharmacy[] }) => {
   );
 };
 
-export default Marker;
+export default PharmaMarkers;
