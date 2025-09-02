@@ -3,18 +3,25 @@ import {
   APIProvider,
   Map as GoogleMap,
   Marker,
+  ControlPosition,
+  AdvancedMarker,
 } from "@vis.gl/react-google-maps";
 import pharmacies from "../../data/pharmacies.json";
 import { getDistance } from "~/utils/haverDistance";
 import CircleOverlay from "~/components/CircleOverlay";
 import PharmaMarkers from "~/components/PharmaMarkers";
+import CustomZoomControl from "~/components/CustomZoomControl"
 
 const MapView = () => {
   const [userLocation, setUserLocation] = useState({
     lat: 19.38567402882208,
     lng: 72.82604810315601,
   });
+  const [controlPosition, _setControlPosition] = useState<ControlPosition>(
+    ControlPosition.RIGHT_BOTTOM
+  );
   const [radius, setRadius] = useState(500); // 500 m default
+  const [zoom, setZoom] = useState(13);
 
   // get user GPS location
   useEffect(() => {
@@ -58,13 +65,22 @@ const MapView = () => {
 
       <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
         <GoogleMap
-          zoom={14.8}
+          disableDefaultUI={true}
+          gestureHandling={"greedy"}
+          zoom={zoom}
+          onZoomChanged={(ev) => setZoom(ev.detail.zoom)}
           center={userLocation}
           mapId={import.meta.env.VITE_GOOGLE_MAPS_ID}
           className="w-full h-full"
         >
+          {/* Custom Zoom Control */}
+          <CustomZoomControl
+            controlPosition={controlPosition}
+            zoom={zoom}
+            onZoomChange={setZoom}
+          />
           {/* User Marker */}
-          <Marker position={userLocation} label="You" />
+          <AdvancedMarker position={userLocation} />
 
           {/* Circle Overlay */}
           <CircleOverlay center={userLocation} radius={radius} />

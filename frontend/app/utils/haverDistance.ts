@@ -4,7 +4,7 @@ export function getDistance(
   lat2: number,
   lon2: number
 ) {
-  const R = 6371 * 1000; // Radius of the earth in meters
+  const R = 6371e3; // Radius of the earth in meters
   const phi1 = (lat1 * Math.PI) / 180; // Convert latitude to radians
   const phi2 = (lat2 * Math.PI) / 180;
   const dPhi = (lat2 - lat1) * (Math.PI / 180);
