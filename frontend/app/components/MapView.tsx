@@ -6,13 +6,12 @@ import {
   ControlPosition,
   AdvancedMarker,
 } from "@vis.gl/react-google-maps";
-import pharmacies from "../../data/pharmacies.json";
 import { getDistance } from "~/utils/haverDistance";
 import CircleOverlay from "~/components/CircleOverlay";
 import PharmaMarkers from "~/components/PharmaMarkers";
 import CustomZoomControl from "~/components/CustomZoomControl"
 
-const MapView = () => {
+const MapView = ({ pharmacies }: { pharmacies: IPharmacy[] }) => {
   const [userLocation, setUserLocation] = useState({
     lat: 19.38567402882208,
     lng: 72.82604810315601,

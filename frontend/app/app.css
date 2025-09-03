@@ -189,3 +189,7 @@ body {
     hover:border-slate-300 shadow-sm focus:shadow;
   }
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
