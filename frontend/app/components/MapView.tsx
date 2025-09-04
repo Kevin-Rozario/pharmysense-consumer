@@ -52,6 +52,7 @@ const MapView = ({
 
   return (
     <div className="h-screen relative">
+      
       {/* Radius Selector */}
       <div className="absolute top-4 right-4 bg-white p-3 rounded-lg shadow text-black z-10 flex space-x-2">
         {[500, 1000, 1500, 2000].map((r) => (

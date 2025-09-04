@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Building2, Clock4, Tablets } from "lucide-react";
+import { Building2, Clock4, Star, Box } from "lucide-react";
 import PharmaCard from "./PharmaCard";
 
 const Sidebar = ({
@@ -41,7 +41,7 @@ const Sidebar = ({
       />
 
       {/* Filter */}
-      <div className="flex space-x-2">
+      <div className="flex justify-baseline items-center flex-wrap gap-2">
         <button
           className={`rounded-full px-4 py-2 flex items-center gap-2 border transition ${
             activeFilter === "open"
@@ -74,22 +74,38 @@ const Sidebar = ({
           }`}
           onClick={() => handleFilterClick("tablets")}
         >
-          <Tablets className="w-4 h-4" />
-          Tablets
+          <Box className="w-4 h-4" />
+          Delivery
+        </button>
+
+        <button
+          className={`rounded-full px-4 py-2 flex items-center gap-2 border transition ${
+            activeFilter === "tablets"
+              ? "bg-green-600 text-white border-green-600"
+              : "bg-white text-black border-gray-200 hover:bg-gray-100"
+          }`}
+          onClick={() => handleFilterClick("tablets")}
+        >
+          <Star className="w-4 h-4" />
+          Rating 4.0+
         </button>
       </div>
 
       {/* Pharmacy List */}
       <div className="flex-1 overflow-y-auto space-y-4 scrollbar-hide">
-        {filteredPharmacies.map((pharmacy) => (
-          <div
-            key={pharmacy.pharmacyId}
-            onClick={() => onSelectPharmacy(pharmacy)}
-            className="cursor-pointer"
-          >
-            <PharmaCard pharmacy={pharmacy} />
-          </div>
-        ))}
+        {filteredPharmacies.length === 0 ? (
+          <p className="text-sm text-gray-500">No pharmacies found.</p>
+        ) : (
+          filteredPharmacies.map((pharmacy) => (
+            <div
+              key={pharmacy.pharmacyId}
+              onClick={() => onSelectPharmacy(pharmacy)}
+              className="cursor-pointer"
+            >
+              <PharmaCard pharmacy={pharmacy} />
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
