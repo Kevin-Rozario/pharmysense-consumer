@@ -1,20 +1,15 @@
-import { AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
-import { useCallback, useState } from "react";
-import MarkerInfoCard from "./MarkerInfoCard";
+import { AdvancedMarker, Pin } from "@vis.gl/react-google-maps";
+import { FaCapsules } from "react-icons/fa6";
 
-const PharmaMarkers = ({ pharmacies }: { pharmacies: IPharmacy[] }) => {
-  const [selectedPharmacy, setSelectedPharmacy] = useState<IPharmacy | null>(
-    null
-  );
-
-  const handleMarkerClick = useCallback((pharmacy: IPharmacy) => {
-    setSelectedPharmacy(pharmacy);
-  }, []);
-
-  const handleCloseInfoWindow = useCallback(() => {
-    setSelectedPharmacy(null);
-  }, []);
-
+const PharmaMarkers = ({
+  pharmacies,
+  selectedPharmacy,
+  onSelectPharmacy,
+}: {
+  pharmacies: IPharmacy[];
+  selectedPharmacy: IPharmacy | null;
+  onSelectPharmacy: (pharmacy: IPharmacy) => void;
+}) => {
   return (
     <>
       {pharmacies.map((pharmacy) => (
@@ -22,19 +17,16 @@ const PharmaMarkers = ({ pharmacies }: { pharmacies: IPharmacy[] }) => {
           key={pharmacy.pharmacyId}
           position={pharmacy.location}
           clickable={true}
-          onClick={() => handleMarkerClick(pharmacy)}
-        />
-      ))}
-
-      {selectedPharmacy && (
-        <InfoWindow
-          position={selectedPharmacy.location}
-          onCloseClick={handleCloseInfoWindow}
-          pixelOffset={[0, -30]}
+          onClick={() => onSelectPharmacy(pharmacy)}
         >
-          <MarkerInfoCard selectedPharmacy={selectedPharmacy} />
-        </InfoWindow>
-      )}
+          <div
+            className={`flex items-center justify-center w-8 h-8 rounded-full shadow-md
+      ${selectedPharmacy?.pharmacyId === pharmacy.pharmacyId ? "bg-green-600 text-white border-2 border-white" : "bg-white text-green-600 border-2 border-green-600"}`}
+          >
+            <FaCapsules size={14} />
+          </div>
+        </AdvancedMarker>
+      ))}
     </>
   );
 };

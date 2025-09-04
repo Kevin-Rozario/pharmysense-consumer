@@ -1,71 +1,76 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   APIProvider,
   Map as GoogleMap,
-  Marker,
   ControlPosition,
   AdvancedMarker,
 } from "@vis.gl/react-google-maps";
 import { getDistance } from "~/utils/haverDistance";
 import CircleOverlay from "~/components/CircleOverlay";
 import PharmaMarkers from "~/components/PharmaMarkers";
-import CustomZoomControl from "~/components/CustomZoomControl"
+import CustomZoomControl from "~/components/CustomZoomControl";
 
-const MapView = ({ pharmacies }: { pharmacies: IPharmacy[] }) => {
-  const [userLocation, setUserLocation] = useState({
+const MapView = ({
+  pharmacies,
+  selectedPharmacy,
+  onSelectPharmacy,
+}: {
+  pharmacies: IPharmacy[];
+  selectedPharmacy: IPharmacy | null;
+  onSelectPharmacy: (pharmacy: IPharmacy) => void;
+}) => {
+  const [userLocation, setUserLocation] = useState<google.maps.LatLngLiteral>({
     lat: 19.38567402882208,
     lng: 72.82604810315601,
   });
-  const [controlPosition, _setControlPosition] = useState<ControlPosition>(
-    ControlPosition.RIGHT_BOTTOM
-  );
-  const [radius, setRadius] = useState(500); // 500 m default
-  const [zoom, setZoom] = useState(13);
+  const [radius, setRadius] = useState(500);
+  const [zoom, setZoom] = useState(16);
 
-  // get user GPS location
+  // get user GPS location once
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setUserLocation({
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        });
-      });
+      navigator.geolocation.getCurrentPosition(({ coords }) =>
+        setUserLocation({ lat: coords.latitude, lng: coords.longitude })
+      );
     }
   }, []);
 
   // filter pharmacies inside radius
-  const filteredPharmacies = pharmacies.filter((pharmacy) => {
-    const distance = getDistance(
-      userLocation.lat,
-      userLocation.lng,
-      pharmacy.location.lat,
-      pharmacy.location.lng
-    );
-    return distance <= radius;
-  });
+  const filteredPharmacies = useMemo(
+    () =>
+      pharmacies.filter((pharmacy) => {
+        const distance = getDistance(
+          userLocation.lat,
+          userLocation.lng,
+          pharmacy.location.lat,
+          pharmacy.location.lng
+        );
+        return distance <= radius;
+      }),
+    [pharmacies, userLocation, radius]
+  );
 
   return (
     <div className="h-screen relative">
       {/* Radius Selector */}
-      <div className="absolute top-4 right-4 bg-white p-3 rounded-lg shadow text-black z-10">
-        <label className="mr-2 font-medium">Radius:</label>
-        <select
-          value={radius}
-          onChange={(e) => setRadius(Number(e.target.value))}
-          className="border rounded px-2 py-1"
-        >
-          <option value={500}>500 m</option>
-          <option value={1000}>1 km</option>
-          <option value={1500}>1.5 km</option>
-          <option value={2000}>2 km</option>
-        </select>
+      <div className="absolute top-4 right-4 bg-white p-3 rounded-lg shadow text-black z-10 flex space-x-2">
+        {[500, 1000, 1500, 2000].map((r) => (
+          <button
+            key={r}
+            onClick={() => setRadius(r)}
+            className={`px-3 py-1 rounded-full border ${
+              radius === r ? "bg-green-600 text-white" : "bg-white text-black"
+            }`}
+          >
+            {r >= 1000 ? `${r / 1000} km` : `${r} m`}
+          </button>
+        ))}
       </div>
 
       <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
         <GoogleMap
-          disableDefaultUI={true}
-          gestureHandling={"greedy"}
+          disableDefaultUI
+          gestureHandling="greedy"
           zoom={zoom}
           onZoomChanged={(ev) => setZoom(ev.detail.zoom)}
           center={userLocation}
@@ -74,18 +79,34 @@ const MapView = ({ pharmacies }: { pharmacies: IPharmacy[] }) => {
         >
           {/* Custom Zoom Control */}
           <CustomZoomControl
-            controlPosition={controlPosition}
+            controlPosition={ControlPosition.RIGHT_BOTTOM}
             zoom={zoom}
             onZoomChange={setZoom}
           />
+
           {/* User Marker */}
-          <AdvancedMarker position={userLocation} />
+          <AdvancedMarker position={userLocation}>
+            <div
+              style={{
+                width: "24px",
+                height: "24px",
+                borderRadius: "50%",
+                background: "#4285F4", // blue
+                border: "2px solid white",
+                boxShadow: "0 0 6px rgba(0,0,0,0.3)",
+              }}
+            />
+          </AdvancedMarker>
 
           {/* Circle Overlay */}
           <CircleOverlay center={userLocation} radius={radius} />
 
           {/* Pharmacy markers */}
-          <PharmaMarkers pharmacies={filteredPharmacies} />
+          <PharmaMarkers
+            pharmacies={filteredPharmacies}
+            selectedPharmacy={selectedPharmacy}
+            onSelectPharmacy={onSelectPharmacy}
+          />
         </GoogleMap>
       </APIProvider>
     </div>

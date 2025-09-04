@@ -1,36 +1,38 @@
 import { ControlPosition, MapControl } from "@vis.gl/react-google-maps";
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 
 type CustomZoomControlProps = {
   controlPosition: ControlPosition;
   zoom: number;
   onZoomChange: (zoom: number) => void;
 };
+
 const CustomZoomControl = ({
   controlPosition,
   zoom,
   onZoomChange,
 }: CustomZoomControlProps) => {
-  return <MapControl position={controlPosition}>
-    <div
-        style={{
-          margin: '10px',
-          padding: '1em',
-          background: 'rgba(255,255,255,0.4)',
-          display: 'flex',
-          flexFlow: 'column nowrap'
-        }}>
-        <label htmlFor={'zoom'}>This is a custom zoom control!</label>
-        <input
-          id={'zoom'}
-          type={'range'}
-          min={1}
-          max={18}
-          step={'any'}
-          value={zoom}
-          onChange={ev => onZoomChange(ev.target.valueAsNumber)}
-        />
+  const handleZoomIn = () => onZoomChange(Math.min(zoom + 1, 18));
+  const handleZoomOut = () => onZoomChange(Math.max(zoom - 1, 1));
+
+  return (
+    <MapControl position={controlPosition}>
+      <div className="flex flex-col bg-white rounded-lg shadow-md overflow-hidden mr-4 mb-4">
+        <button
+          onClick={handleZoomIn}
+          className="p-2 hover:bg-gray-100 border-b flex justify-center items-center"
+        >
+          <AiOutlinePlus className="w-5 h-5" />
+        </button>
+        <button
+          onClick={handleZoomOut}
+          className="p-2 hover:bg-gray-100 flex justify-center items-center"
+        >
+          <AiOutlineMinus className="w-5 h-5" />
+        </button>
       </div>
-  </MapControl>
+    </MapControl>
+  );
 };
 
 export default CustomZoomControl;
