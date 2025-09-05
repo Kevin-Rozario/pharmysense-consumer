@@ -12,6 +12,7 @@ export function meta({}: Route.MetaArgs) {
     { name: "description", content: "Map view of Pharmysense" },
   ];
 }
+
 const Map = () => {
   const [selectedPharmacy, setSelectedPharmacy] = useState<IPharmacy | null>(
     null
