@@ -19,70 +19,90 @@ const PharmaDetailCard = ({
 }) => {
   return (
     <div className="absolute right-4 top-0 bottom-0 m-auto h-130 w-90 z-50 bg-white flex flex-col space-y-4 rounded-xl shadow-md border border-slate-100 overflow-hidden">
-      {/* Header with close button */}
-      <div className="w-full bg-amber-500 h-[20%] flex justify-between items-center px-4 font-semibold text-white relative">
-        <span>{pharmacy.pharmacyName}</span>
-        <button onClick={onClose} className="absolute top-2 right-2">
+      {/* Header */}
+      <div
+        className="bg-gradient-to-r from-amber-500 to-orange-400 h-20 
+        flex items-center justify-between px-5 text-white font-semibold relative"
+      >
+        <span className="text-lg truncate">{pharmacy.pharmacyName}</span>
+        <button
+          onClick={onClose}
+          className="p-1 rounded-full bg-white/20 hover:bg-white/30"
+        >
           <X className="w-5 h-5" />
         </button>
       </div>
 
-      <div className="flex flex-col space-y-4 px-4 py-2">
+      {/* Scrollable content */}
+      <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4">
+        {/* Top Section */}
         <div className="flex justify-between items-center">
-          <div className="flex flex-col gap-2">
-            <p className="text-lg font-semibold text-black">
+          <div className="flex flex-col gap-1">
+            <p className="text-xl font-semibold text-gray-900">
               {pharmacy.pharmacyName}
             </p>
-            <p className="text-sm flex items-center gap-2 font-semibold">
-              <Star className="w-4 h-4 fill-orange-300" /> {pharmacy.rating}
-              <span>(300)</span>
+            <p className="text-sm flex items-center gap-1 text-gray-700">
+              <Star className="w-4 h-4 fill-orange-300 text-orange-300" />
+              {pharmacy.rating} <span className="text-gray-500">(300)</span>
             </p>
           </div>
-          <button className="bg-green-600 text-white rounded-full px-4 py-4 flex items-center gap-2">
+          <button className="bg-green-600 text-white rounded-full p-3 hover:bg-green-700 transition">
             <BsSignTurnRightFill className="w-6 h-6" />
           </button>
         </div>
 
-        <hr className="w-full text-slate-300" />
+        <hr className="border-gray-200" />
 
+        {/* Contact info */}
         {!!pharmacy.email && (
-          <div className="flex items-center gap-4">
-            <FaEnvelope className="w-4 h-4" />
-            <p className="text-sm">{pharmacy.email}</p>
+          <div className="flex items-center gap-3 text-gray-700">
+            <FaEnvelope className="w-4 h-4 text-amber-500" />
+            <p className="text-sm break-words">{pharmacy.email}</p>
           </div>
         )}
         {!!pharmacy.phoneNumber && (
-          <div className="flex items-center gap-4">
-            <FaPhone className="w-4 h-4" />
+          <div className="flex items-center gap-3 text-gray-700">
+            <FaPhone className="w-4 h-4 text-amber-500" />
             <p className="text-sm">{pharmacy.phoneNumber}</p>
           </div>
         )}
         {!!pharmacy.website && (
-          <div className="flex items-center gap-4">
-            <FaGlobe className="w-4 h-4" />
-            <p className="text-sm">{pharmacy.website}</p>
+          <div className="flex items-center gap-3 text-gray-700">
+            <FaGlobe className="w-4 h-4 text-amber-500" />
+            <a
+              href={pharmacy.website}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm text-blue-600 hover:underline"
+            >
+              {pharmacy.website}
+            </a>
           </div>
         )}
-        <div className="flex items-center gap-4">
-          <FaLocationDot className="w-10 h-10" />
+
+        {/* Address */}
+        <div className="flex items-start gap-3 text-gray-700">
+          <FaLocationDot className="w-5 h-5 text-amber-500 flex-shrink-0" />
           <p className="text-sm text-justify">{pharmacy.address}</p>
         </div>
-        <div className="flex items-center gap-4 font-bold">
-          <MdOutlineRadar className="w-4 h-4" />
+
+        {/* Distance */}
+        <div className="flex items-center gap-3 font-medium text-gray-800">
+          <MdOutlineRadar className="w-5 h-5 text-green-600" />
           <p className="text-sm">Within {pharmacy.distance}</p>
         </div>
+      </div>
 
-        {/* Action buttons */}
-        <div className="flex justify-between absolute bottom-4 left-4 right-4">
-          <button className="bg-amber-500 text-white rounded-full px-4 py-2 flex items-center gap-2">
-            <FaPenNib className="w-4 h-4" />
-            Subscribe
-          </button>
-          <button className="bg-green-600 text-white rounded-full px-4 py-2 flex items-center gap-2">
-            <FaLock className="w-4 h-4" />
-            Buy
-          </button>
-        </div>
+      {/* Sticky Footer Buttons */}
+      <div className="flex justify-between items-center px-5 py-3 border-t border-gray-200 bg-white">
+        <button className="bg-amber-500 hover:bg-amber-600 text-white rounded-full px-5 py-2 flex items-center gap-2 transition">
+          <FaPenNib className="w-4 h-4" />
+          Subscribe
+        </button>
+        <button className="bg-green-600 hover:bg-green-700 text-white rounded-full px-6 py-2 flex items-center gap-2 transition">
+          <FaLock className="w-4 h-4" />
+          Buy
+        </button>
       </div>
     </div>
   );

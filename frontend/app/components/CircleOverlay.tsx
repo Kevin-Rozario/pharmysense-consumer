@@ -20,10 +20,10 @@ const CircleOverlay = ({
         map,
         center,
         radius,
-        fillColor: "#4285F4",
-        fillOpacity: 0.15,
-        strokeColor: "#4285F4",
-        strokeOpacity: 0.8,
+        fillColor: "#22c55e", // Tailwind green-500
+        fillOpacity: 0.12,
+        strokeColor: "#16a34a", // Tailwind green-600
+        strokeOpacity: 0.9,
         strokeWeight: 2,
       });
     }

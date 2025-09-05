@@ -55,7 +55,7 @@ export default function App() {
       {!isAuthRoute && <Navbar />}
 
       {/* Main content */}
-      <main className={`${isAuthRoute ? "" : "flex-1 pt-20"}`}>
+      <main className={`flex-1 overflow-hidden ${isAuthRoute ? "" : "flex-1 pt-20"}`}>
         <Outlet />
       </main>
 

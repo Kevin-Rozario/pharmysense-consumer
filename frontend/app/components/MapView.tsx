@@ -51,16 +51,17 @@ const MapView = ({
   );
 
   return (
-    <div className="h-screen relative">
-      
+    <div className="relative w-full h-full overflow-hidden">
       {/* Radius Selector */}
-      <div className="absolute top-4 right-4 bg-white p-3 rounded-lg shadow text-black z-10 flex space-x-2">
+      <div className="absolute top-6 right-6 bg-white p-3 rounded-2xl shadow-lg z-10 flex space-x-3">
         {[500, 1000, 1500, 2000].map((r) => (
           <button
             key={r}
             onClick={() => setRadius(r)}
-            className={`px-3 py-1 rounded-full border ${
-              radius === r ? "bg-green-600 text-white" : "bg-white text-black"
+            className={`px-4 py-2 rounded-full font-medium transition ${
+              radius === r
+                ? "bg-green-600 text-white shadow-md"
+                : "bg-gray-100 hover:bg-gray-200 text-gray-800"
             }`}
           >
             {r >= 1000 ? `${r / 1000} km` : `${r} m`}
@@ -68,6 +69,7 @@ const MapView = ({
         ))}
       </div>
 
+      {/* Google Map */}
       <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>
         <GoogleMap
           disableDefaultUI
@@ -87,16 +89,12 @@ const MapView = ({
 
           {/* User Marker */}
           <AdvancedMarker position={userLocation}>
-            <div
-              style={{
-                width: "24px",
-                height: "24px",
-                borderRadius: "50%",
-                background: "#4285F4", // blue
-                border: "2px solid white",
-                boxShadow: "0 0 6px rgba(0,0,0,0.3)",
-              }}
-            />
+            <div className="relative flex items-center justify-center">
+              {/* Outer Pulse */}
+              <span className="absolute w-8 h-8 bg-blue-400 opacity-30 rounded-full animate-ping" />
+              {/* Inner Dot */}
+              <span className="w-4 h-4 bg-blue-600 rounded-full border-2 border-white shadow" />
+            </div>
           </AdvancedMarker>
 
           {/* Circle Overlay */}
