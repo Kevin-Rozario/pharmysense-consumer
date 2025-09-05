@@ -50,12 +50,18 @@ export default function App() {
 
   const isAuthRoute = location.pathname.startsWith("/auth");
   return (
-    <div className="relative flex flex-col min-h-screen">
+    <div
+      className={`relative flex flex-col min-h-screen mx-auto ${
+        location.pathname === "/map" ? "w-full" : "w-[80%]"
+      }`}
+    >
       {/* Show navbar/footer only if NOT in auth routes */}
       {!isAuthRoute && <Navbar />}
 
       {/* Main content */}
-      <main className={`flex-1 overflow-hidden ${isAuthRoute ? "" : "flex-1 pt-20"}`}>
+      <main
+        className={`flex-1 overflow-hidden ${isAuthRoute ? "" : "flex-1 pt-20"}`}
+      >
         <Outlet />
       </main>
 

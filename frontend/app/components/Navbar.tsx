@@ -12,10 +12,10 @@ const Navbar = () => {
   ];
 
   return (
-    <>
+    <div className="w-full">
       {/* Floating Navbar */}
-      <div className="fixed top-0 left-0 w-full z-50 bg-transparent backdrop-blur-md">
-        <div className="relative flex items-center justify-between max-w-7xl mx-auto px-6 py-4">
+      <div className="fixed top-0 left-0 w-full z-60 backdrop-blur-md">
+        <div className="relative flex items-center justify-between w-[80%] mx-auto px-6 py-4 bg-amber-600">
           {/* Logo */}
           <p className="font-semibold text-2xl text-green-700">Pharmysense</p>
 
@@ -95,7 +95,7 @@ const Navbar = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
