@@ -5,10 +5,12 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -42,15 +44,28 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+// Main App layout for all "public" routes
 export default function App() {
+  const location = useLocation();
+
+  const isAuthRoute = location.pathname.startsWith("/auth");
   return (
-    <div className="relative">
-      <Navbar />
-      <Outlet />
+    <div className="relative flex flex-col min-h-screen">
+      {/* Show navbar/footer only if NOT in auth routes */}
+      {!isAuthRoute && <Navbar />}
+
+      {/* Main content */}
+      <main className={`${isAuthRoute ? "" : "flex-1 pt-20"}`}>
+        <Outlet />
+      </main>
+
+      {/* Footer */}
+      {!isAuthRoute && <Footer />}
     </div>
   );
 }
 
+// Error handling
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let message = "Oops!";
   let details = "An unexpected error occurred.";
@@ -62,17 +77,17 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       error.status === 404
         ? "The requested page could not be found."
         : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
+  } else if (import.meta.env.DEV && error instanceof Error) {
     details = error.message;
     stack = error.stack;
   }
 
   return (
     <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
+      <h1 className="text-2xl font-bold">{message}</h1>
+      <p className="mt-2">{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre className="mt-4 w-full p-4 overflow-x-auto bg-gray-100 rounded">
           <code>{stack}</code>
         </pre>
       )}

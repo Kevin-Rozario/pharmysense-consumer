@@ -1,16 +1,22 @@
-import { type RouteConfig, index, route } from "@react-router/dev/routes";
+import {
+  type RouteConfig,
+  index,
+  prefix,
+  route,
+} from "@react-router/dev/routes";
 
 export default [
-  // Home page
+  // Public routes
   index("routes/Home.tsx"),
-
-  // Authentication Routes
-  route("auth/login", "routes/Login.tsx"),
-  route("auth/register", "routes/Register.tsx"),
-
-  // Map & Pharmacy Routes
   route("map", "routes/Map.tsx"),
+  route("about", "routes/About.tsx"),
 
-  // Catch-all route
+  // Authentication routes
+  ...prefix("auth", [
+    route("login", "routes/Login.tsx"),
+    route("register", "routes/Register.tsx"),
+  ]),
+
+  // Catch-all (404 page)
   route("*", "routes/NotFound.tsx"),
 ] satisfies RouteConfig;
