@@ -4,6 +4,14 @@ import MapView from "../components/MapView";
 import PharmaDetailCard from "../components/PharmaDetailCard";
 import pharmacies from "../../data/pharmacies.json";
 
+import type { Route } from "./+types/Map";
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Pharmysense | Map" },
+    { name: "description", content: "Map view of Pharmysense" },
+  ];
+}
 const Map = () => {
   const [selectedPharmacy, setSelectedPharmacy] = useState<IPharmacy | null>(
     null

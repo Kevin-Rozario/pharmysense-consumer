@@ -10,11 +10,19 @@ import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import { Link } from "react-router";
 
+import type { Route } from "./+types/Login";
+
 const formSchema = z.object({
   email: z.string().email("Enter a valid email"),
   password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Pharmysense | Login" },
+    { name: "description", content: "Login to Pharmysense" },
+  ];
+}
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 

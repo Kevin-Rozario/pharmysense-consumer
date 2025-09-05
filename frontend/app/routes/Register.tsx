@@ -10,6 +10,8 @@ import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import { Link } from "react-router";
 
+import type { Route } from "./+types/Register";
+
 const formSchema = z
   .object({
     name: z.string().min(2, "Name must be at least 2 characters"),
@@ -22,6 +24,13 @@ const formSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"], // show error under confirmPassword
   });
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Pharmysense | Register" },
+    { name: "description", content: "Register to Pharmysense" },
+  ];
+}
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
