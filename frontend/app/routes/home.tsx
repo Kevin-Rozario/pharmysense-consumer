@@ -1,3 +1,4 @@
+import Hero from "~/blocks/Hero";
 import type { Route } from "./+types/Home";
 
 export function meta({}: Route.MetaArgs) {
@@ -8,5 +9,9 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <div>Pharmysense Home Page</div>;
+  return (
+    <>
+      <Hero />
+    </>
+  );
 }
