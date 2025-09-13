@@ -5,7 +5,7 @@ const CircleOverlay = ({
   center,
   radius,
 }: {
-  center: google.maps.LatLngLiteral;
+  center: google.maps.LatLngLiteral | null;
   radius: number;
 }) => {
   const map = useMap();

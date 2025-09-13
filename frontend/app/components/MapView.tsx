@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import {
   APIProvider,
   Map as GoogleMap,
@@ -9,22 +9,21 @@ import { getDistance } from "~/utils/haverDistance";
 import CircleOverlay from "~/components/CircleOverlay";
 import PharmaMarkers from "~/components/PharmaMarkers";
 import CustomZoomControl from "~/components/CustomZoomControl";
+import { usePharmaStore } from "~/stores/pharmaStore";
 
 const MapView = ({
   pharmacies,
+  onPharmaciesFiltered,
   selectedPharmacy,
   onSelectPharmacy,
 }: {
   pharmacies: IPharmacy[];
+  onPharmaciesFiltered: (list: IPharmacy[]) => void;
   selectedPharmacy: IPharmacy | null;
   onSelectPharmacy: (pharmacy: IPharmacy) => void;
 }) => {
-  const [userLocation, setUserLocation] = useState<google.maps.LatLngLiteral>({
-    lat: 19.38567402882208,
-    lng: 72.82604810315601,
-  });
-  const [radius, setRadius] = useState(500);
-  const [zoom, setZoom] = useState(16);
+  const { userLocation, setUserLocation, radius, zoom, setZoom } =
+    usePharmaStore();
 
   // get user GPS location once
   useEffect(() => {
@@ -33,22 +32,29 @@ const MapView = ({
         setUserLocation({ lat: coords.latitude, lng: coords.longitude })
       );
     }
-  }, []);
+  }, [setUserLocation]);
 
-  // filter pharmacies inside radius
+  // Filter pharmacies inside radius
   const filteredPharmacies = useMemo(
     () =>
-      pharmacies.filter((pharmacy) => {
-        const distance = getDistance(
-          userLocation.lat,
-          userLocation.lng,
-          pharmacy.location.lat,
-          pharmacy.location.lng
-        );
-        return distance <= radius;
-      }),
+      userLocation
+        ? pharmacies.filter((pharmacy) => {
+            const distance = getDistance(
+              userLocation.lat,
+              userLocation.lng,
+              pharmacy.location.lat,
+              pharmacy.location.lng
+            );
+            return distance <= radius;
+          })
+        : [],
     [pharmacies, userLocation, radius]
   );
+
+  // Notify parent whenever pharmacies in range change
+  useEffect(() => {
+    onPharmaciesFiltered(filteredPharmacies);
+  }, [filteredPharmacies, onPharmaciesFiltered]);
 
   return (
     <div className="relative w-full h-full overflow-hidden">
@@ -57,7 +63,7 @@ const MapView = ({
         {[500, 1000, 1500, 2000].map((r) => (
           <button
             key={r}
-            onClick={() => setRadius(r)}
+            onClick={() => usePharmaStore.setState({ radius: r })}
             className={`px-4 py-2 rounded-full font-medium transition ${
               radius === r
                 ? "bg-green-600 text-white shadow-md"
@@ -90,9 +96,7 @@ const MapView = ({
           {/* User Marker */}
           <AdvancedMarker position={userLocation}>
             <div className="relative flex items-center justify-center">
-              {/* Outer Pulse */}
               <span className="absolute w-8 h-8 bg-blue-400 opacity-30 rounded-full animate-ping" />
-              {/* Inner Dot */}
               <span className="w-4 h-4 bg-blue-600 rounded-full border-2 border-white shadow" />
             </div>
           </AdvancedMarker>
