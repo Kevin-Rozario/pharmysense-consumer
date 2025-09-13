@@ -9,8 +9,6 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -46,29 +44,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 // Main App layout for all "public" routes
 export default function App() {
-  const location = useLocation();
-
-  const isAuthRoute = location.pathname.startsWith("/auth");
-  return (
-    <div
-      className={`relative flex flex-col min-h-screen mx-auto ${
-        location.pathname === "/map" ? "w-full" : "w-[80%]"
-      }`}
-    >
-      {/* Show navbar/footer only if NOT in auth routes */}
-      {!isAuthRoute && <Navbar />}
-
-      {/* Main content */}
-      <main
-        className={`flex-1 overflow-hidden ${isAuthRoute ? "" : "flex-1 pt-20"}`}
-      >
-        <Outlet />
-      </main>
-
-      {/* Footer */}
-      {!isAuthRoute && <Footer />}
-    </div>
-  );
+  return <Outlet />;
 }
 
 // Error handling
