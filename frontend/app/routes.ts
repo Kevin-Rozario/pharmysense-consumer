@@ -7,16 +7,16 @@ import {
 
 export default [
   // Public routes
-  index("routes/Home.tsx"),
-  route("map", "routes/Map.tsx"),
-  route("about", "routes/About.tsx"),
+  index("pages/Home.tsx"),
+  route("map", "pages/Map.tsx"),
+  route("about", "pages/About.tsx"),
 
   // Authentication routes
   ...prefix("auth", [
-    route("login", "routes/Login.tsx"),
-    route("register", "routes/Register.tsx"),
+    route("login", "pages/Login.tsx"),
+    route("register", "pages/Register.tsx"),
   ]),
 
   // Catch-all (404 page)
-  route("*", "routes/NotFound.tsx"),
+  route("*", "pages/NotFound.tsx"),
 ] satisfies RouteConfig;

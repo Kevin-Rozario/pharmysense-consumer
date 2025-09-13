@@ -4,12 +4,11 @@ import MapView from "../components/MapView";
 import PharmaDetailCard from "../components/PharmaDetailCard";
 import pharmacies from "../../data/pharmacies.json";
 
-import type { Route } from "./+types/Map";
+import type { Route } from "../routes/+types/Map";
 import type { LoaderFunctionArgs } from "react-router";
 
-// ✅ Add this loader to satisfy the GET request
 export function loader({ request }: LoaderFunctionArgs) {
-  return null; // no server data needed
+  return null; 
 }
 
 export function meta({}: Route.MetaArgs) {
