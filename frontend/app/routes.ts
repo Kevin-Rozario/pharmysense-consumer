@@ -10,6 +10,7 @@ export default [
   index("pages/Home.tsx"),
   route("map", "pages/Map.tsx"),
   route("about", "pages/About.tsx"),
+  route("contact", "pages/Contact.tsx"),
 
   // Authentication routes
   ...prefix("auth", [
