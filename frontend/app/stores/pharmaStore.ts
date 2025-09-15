@@ -19,7 +19,7 @@ export const usePharmaStore = create<IPharmaStore>()((set) => ({
   selectedPharmacy: null,
   radius: 500,
   zoom: 16,
-  userLocation: null,
+  userLocation: { lat: 19.389283633854934, lng: 72.82566971421026 },
   activeFilter: null,
 
   setSelectedPharmacy: (pharmacy) => set({ selectedPharmacy: pharmacy }),
